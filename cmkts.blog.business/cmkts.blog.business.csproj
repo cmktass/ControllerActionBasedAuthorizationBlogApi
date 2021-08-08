@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\cmkts.blog.dataaccess\cmkts.blog.dataaccess.csproj" />
+    <ProjectReference Include="..\cmkts.blog.entities\cmkts.blog.entities.csproj" />
+    <ProjectReference Include="..\cmkts.blog.viewmodel\cmkts.blog.viewmodel.csproj" />
+  </ItemGroup>
+
+</Project>
