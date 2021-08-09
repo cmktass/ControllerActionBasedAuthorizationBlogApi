@@ -15,14 +15,13 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
     {
         public async Task<bool> Register(User user)
         {
-            if(UserExist(user.Email)!=null)
+            if(UserExist(user.Email) == null)
             {
-                using (var db = new CmktsBlogSiteContext())
-                {
-                    await db.Users.AddAsync(user);
-                    await db.SaveChangesAsync();
-                    return true;
-                }
+                using var db = new CmktsBlogSiteContext();
+                user.RegisteredAt = DateTime.Now;
+                await db.Users.AddAsync(user);
+                await db.SaveChangesAsync();
+                return true;
             }
             return false;
            
@@ -30,10 +29,19 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
 
         public async Task<User> UserExist(string email)
         {
-            using(var db= new CmktsBlogSiteContext())
-            {
-                return await db.Users.Where(u => u.Email == email).FirstOrDefaultAsync();  
-            }
+            using var db = new CmktsBlogSiteContext();
+            return await db.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
         }
+
+        public async Task<User> Login(string userEmail)
+        {
+            var user = await UserExist(userEmail);
+            if (user == null)
+            {
+                return null;
+            }
+            return user;
+        }
+
     }
 }

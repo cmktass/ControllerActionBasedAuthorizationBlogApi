@@ -23,6 +23,7 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.BlogSiteContext
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserSocialMediasConfiguration());
+            modelBuilder.ApplyConfiguration(new UserActivityConfiguration());
         }
     }
 }

@@ -14,11 +14,14 @@ namespace cmkts.blog.business.Concrete
     {
         private IGenericRepository<User> _genericRepository;
         private IUserRepository _userRepository;
+       
+        private IUserActivityRepository _userActivityRepository;
         private IMapper _mapper;
-        public UserService(IGenericRepository<User> genericRepository, IUserRepository userRepository, IMapper mapper) :base(genericRepository)
+        public UserService(IGenericRepository<User> genericRepository, IUserRepository userRepository, IUserActivityRepository userActivityRepository, IMapper mapper) :base(genericRepository)
         {
             _genericRepository = genericRepository;
             _userRepository = userRepository;
+            _userActivityRepository = userActivityRepository;
             _mapper = mapper;
         }
 
@@ -35,7 +38,7 @@ namespace cmkts.blog.business.Concrete
         {
             if (await _userRepository.UserExist(username) != null)
             {
-                return false;
+                return true;
             }
             return false;
         }
@@ -48,6 +51,43 @@ namespace cmkts.blog.business.Concrete
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
-        
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i])
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+        public async Task<UserVM> Login(UserLoginVM userVM)
+        {
+            var user =await _userRepository.Login(userVM.Email);
+            if (user == null)
+            {
+                return null;
+            }
+            else
+            {
+                if (!VerifyPasswordHash(userVM.Password, user.PasswordHash, user.PasswordSalt))
+                {
+                    await _userActivityRepository.AddAsync(new UserActivity { UserId = user.Id });
+                    return null;
+                }
+                else
+                {
+                    return _mapper.Map<UserVM>(user);
+                }
+            } 
+        }
+
     }
 }

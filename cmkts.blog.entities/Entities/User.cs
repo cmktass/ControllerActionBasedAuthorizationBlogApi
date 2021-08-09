@@ -21,6 +21,7 @@ namespace cmkts.blog.entities.Entities
         public List<Post> Posts { get; set; }
         public List<UserSocialMedia> UserSocialMedias { get; set; }
         public List<UserRole> UserRoles { get; set; }
+        public List<UserActivity> UserActivities { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
     }
