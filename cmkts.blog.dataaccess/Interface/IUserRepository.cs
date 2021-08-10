@@ -12,6 +12,7 @@ namespace cmkts.blog.dataaccess.Interface
         Task<bool> Register(User user);
         Task<User> UserExist(string username);
         Task<User> Login(string userEmail);
+        Task<UserRole> GetRolesGetByEmail(string username);
 
 
     }

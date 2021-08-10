@@ -15,7 +15,10 @@ namespace cmkts.blog.business.MicrosoftIoC
             service.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
             service.AddScoped<IUserRepository,UserRepository>();
             service.AddScoped<IUserService, UserService>();
+            service.AddScoped<IUserRoleRepository, UserRoleRepository>();
             service.AddScoped<IUserActivityRepository, UserActivityRepository>();
+            service.AddScoped<IActionRepository, ActionRepository>();
+            service.AddScoped<IActionRoleRepository, ActionRoleRepository>();
             service.AddScoped<IGenerateJwtToken, GenerateJwtToken>();
         }
     }

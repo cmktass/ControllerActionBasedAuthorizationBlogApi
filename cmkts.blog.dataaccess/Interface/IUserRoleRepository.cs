@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace cmkts.blog.dataaccess.Interface
 {
-    interface IControllerAction:IGenericRepository<ControllerAction>
+    public interface IUserRoleRepository:IGenericRepository<UserRole>
     {
-          
+        List<Role> GetRolesGetByEmail(string email);
     }
 }

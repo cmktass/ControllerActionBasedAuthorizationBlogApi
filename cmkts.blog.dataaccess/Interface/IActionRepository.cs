@@ -5,8 +5,8 @@ using System.Text;
 
 namespace cmkts.blog.dataaccess.Interface
 {
-    interface IControllerAction:IGenericRepository<ControllerAction>
+    public interface IActionRepository:IGenericRepository<ControllerAction>
     {
-          
+        List<ControllerAction> GetContollerActionGetByController(string ControllerName);
     }
 }

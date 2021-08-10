@@ -5,8 +5,8 @@ using System.Text;
 
 namespace cmkts.blog.dataaccess.Interface
 {
-    interface IControllerAction:IGenericRepository<ControllerAction>
+    public interface IActionRoleRepository:IGenericRepository<ActionRole>
     {
-          
+        bool CheckActionRole(List<Role> roles, List<ControllerAction> controllerActions);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using cmkts.blog.business.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -11,26 +12,40 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.Extensions.DependencyInjection;
+using cmkts.blog.dataaccess.Interface;
+using cmkts.blog.entities.Entities;
 
 namespace cmkts.blog.wepapi.Filters
 {
     public class CheckAuthorizeAttribute : ActionFilterAttribute,IAsyncAuthorizationFilter
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        
+   
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
+            var _userRepository = context.HttpContext.RequestServices.GetService<IUserRoleRepository>();
+            var _actionRepository = context.HttpContext.RequestServices.GetService<IActionRepository>();
+            var _actionRoleRepository = context.HttpContext.RequestServices.GetService<IActionRoleRepository>();
+            string controller = context.RouteData.Values["controller"] as string;
+            string action = context.RouteData.Values["action"] as string;
             string authorization = context.HttpContext.Request.Headers["Authorization"];
             var token = authorization.Split(" ").Last();
             var nameidentifier = ValidateToken(token);
             if (nameidentifier == null)
             {
-                context.Result=  new UnauthorizedResult();
+                context.Result = new UnauthorizedResult();
             }
-
-           
+            else
+            {
+                var roles = _userRepository.GetRolesGetByEmail(nameidentifier);
+                var actions = _actionRepository.GetContollerActionGetByController(controller);
+                if (!_actionRoleRepository.CheckActionRole(roles, actions))
+                {
+                    context.Result = new UnauthorizedResult();
+                } 
+            }
         }
-
+        
         public string ValidateToken(string token)
         {
             if (token == null)
@@ -62,5 +77,6 @@ namespace cmkts.blog.wepapi.Filters
                 return null;
             }
         }
+        
     }
 }

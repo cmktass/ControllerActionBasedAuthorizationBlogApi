@@ -43,5 +43,9 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
             return user;
         }
 
+        public Task<UserRole> GetRolesGetByEmail(string email)
+        {
+            return null;
+        }
     }
 }
