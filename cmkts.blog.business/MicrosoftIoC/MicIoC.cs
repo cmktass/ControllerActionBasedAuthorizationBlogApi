@@ -12,13 +12,21 @@ namespace cmkts.blog.business.MicrosoftIoC
         public static void AddDependencies(this IServiceCollection service)
         {
             service.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
-            service.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
-            service.AddScoped<IUserRepository,UserRepository>();
-            service.AddScoped<IUserService, UserService>();
             service.AddScoped<IUserRoleRepository, UserRoleRepository>();
             service.AddScoped<IUserActivityRepository, UserActivityRepository>();
             service.AddScoped<IActionRepository, ActionRepository>();
             service.AddScoped<IActionRoleRepository, ActionRoleRepository>();
+            service.AddScoped<ICategoryRepository, CategoryRepository>();
+
+
+
+            service.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+            service.AddScoped<IUserRepository,UserRepository>();
+            service.AddScoped<IUserService, UserService>();
+            service.AddScoped<ICategoryService, CategoryService>();
+
+
+
             service.AddScoped<IGenerateJwtToken, GenerateJwtToken>();
         }
     }

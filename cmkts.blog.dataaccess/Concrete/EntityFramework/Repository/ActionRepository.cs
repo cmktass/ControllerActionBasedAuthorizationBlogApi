@@ -22,7 +22,7 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
                          })
                          .FirstOrDefault();
 
-                return value.controllerActions;
+                return value?.controllerActions;
             }
            
         }

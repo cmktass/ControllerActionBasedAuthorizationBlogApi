@@ -39,10 +39,18 @@ namespace cmkts.blog.wepapi.Filters
             {
                 var roles = _userRepository.GetRolesGetByEmail(nameidentifier);
                 var actions = _actionRepository.GetContollerActionGetByController(controller);
-                if (!_actionRoleRepository.CheckActionRole(roles, actions))
+                if(roles!=null && actions != null)
+                {
+                    if (!_actionRoleRepository.CheckActionRole(roles, actions))
+                    {
+                        context.Result = new UnauthorizedResult();
+                    }
+                }
+                else
                 {
                     context.Result = new UnauthorizedResult();
-                } 
+                }
+                
             }
         }
         
