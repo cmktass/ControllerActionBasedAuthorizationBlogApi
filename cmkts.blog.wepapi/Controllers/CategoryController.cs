@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using cmkts.blog.business.Interface;
 using cmkts.blog.entities.Entities;
+using cmkts.blog.viewmodel.CustomizedVM;
 using cmkts.blog.viewmodel.ViewModels;
 using cmkts.blog.wepapi.Filters;
 using Microsoft.AspNetCore.Http;
@@ -21,7 +22,15 @@ namespace cmkts.blog.wepapi.Controllers
         public CategoryController(ICategoryService categoryService,IMapper mapper)
         {
             _categoryService = categoryService;
+            _mapper = mapper;
         }
+
+        [HttpGet]
+        public async Task<List<CategoriesWithBlogCounts>> GetAllCategory()
+        {
+            return await _categoryService.GetAllCategoryWithBlogCountAsync();
+        }
+
 
         [HttpPost]
         [CheckAuthorizeAttribute]

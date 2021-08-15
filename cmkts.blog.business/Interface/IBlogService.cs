@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace cmkts.blog.dataaccess.Interface
+namespace cmkts.blog.business.Interface
 {
-    interface IPostRepository:IGenericRepository<Post>
+    public interface IBlogService:IGenericService<Post>
     {
+
     }
 }

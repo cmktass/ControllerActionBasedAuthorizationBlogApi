@@ -6,6 +6,7 @@ using cmkts.blog.dataaccess.Concrete.EntityFramework.BlogSiteContext;
 using System.Linq;
 using cmkts.blog.dataaccess.Interface;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
 {
@@ -27,6 +28,14 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
             {
                 db.Set<TEntity>().Remove(entity);
                 return await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            using (var db = new CmktsBlogSiteContext())
+            {
+                return await db.Set<TEntity>().ToListAsync();
             }
         }
 

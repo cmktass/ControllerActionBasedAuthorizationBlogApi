@@ -10,6 +10,7 @@ namespace cmkts.blog.dataaccess.Interface
         Task<TEntity> AddAsync(TEntity entity);
         Task<int> DeleteAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
+        Task<List<TEntity>> GetAllAsync();
 
     }   
 }

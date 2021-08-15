@@ -14,7 +14,10 @@ namespace cmkts.blog.business.Concrete
         {
             _genericRepository = genericRepository;
         }
-
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            return await _genericRepository.GetAllAsync();
+        }
         public Task<TEntity> AddAsync(TEntity entity)
         {
             return _genericRepository.AddAsync(entity);

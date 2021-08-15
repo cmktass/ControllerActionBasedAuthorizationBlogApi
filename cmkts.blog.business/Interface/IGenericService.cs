@@ -10,5 +10,6 @@ namespace cmkts.blog.business.Interface
         Task<TEntity> AddAsync(TEntity entity);
         Task<bool> DeleteAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
+        Task<List<TEntity>> GetAllAsync();
     }
 }
