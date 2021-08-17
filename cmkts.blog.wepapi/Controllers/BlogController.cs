@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using cmkts.blog.business.Interface;
+using cmkts.blog.entities.Entities;
 using cmkts.blog.viewmodel.ViewModels.Post;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,17 @@ namespace cmkts.blog.wepapi.Controllers
         public async Task<List<PostVM>> GetAllBlogs()
         {
             return _mapper.Map<List<PostVM>>(await _blogService.GetAllAsync());
+        }
+        [HttpGet("name")]
+        public async Task<Post> GetBlogByName(string name)
+        {
+            return await _blogService.GetPostByName(name);
+        }
+
+        [HttpGet("category")]
+        public async Task<List<PostVM>> GetPostsByCategory(string category)
+        {
+            return _mapper.Map<List<PostVM>>(await _blogService.GetPostByCategory(category));
         }
     }
 }

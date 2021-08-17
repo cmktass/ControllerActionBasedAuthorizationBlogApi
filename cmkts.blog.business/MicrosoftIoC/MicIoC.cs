@@ -18,14 +18,14 @@ namespace cmkts.blog.business.MicrosoftIoC
             service.AddScoped<IActionRoleRepository, ActionRoleRepository>();
             service.AddScoped<ICategoryRepository, CategoryRepository>();
             service.AddScoped<IBlogRepository, BlogRepository>();
-
+            service.AddScoped<ITagRepository, TagRepository>();
 
             service.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
             service.AddScoped<IUserRepository,UserRepository>();
             service.AddScoped<IUserService, UserService>();
             service.AddScoped<ICategoryService, CategoryService>();
             service.AddScoped<IBlogService, BlogService>();
-
+            service.AddScoped<ITagService, TagService>();
 
             service.AddScoped<IGenerateJwtToken, GenerateJwtToken>();
         }

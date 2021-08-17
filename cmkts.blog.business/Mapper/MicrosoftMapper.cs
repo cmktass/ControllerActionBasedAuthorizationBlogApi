@@ -2,6 +2,7 @@
 using cmkts.blog.entities.Entities;
 using cmkts.blog.viewmodel.ViewModels;
 using cmkts.blog.viewmodel.ViewModels.Post;
+using cmkts.blog.viewmodel.ViewModels.Tag;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,8 @@ namespace cmkts.blog.business.Mapper
             CreateMap<CategoryVM, Category>();
             CreateMap<Post, PostVM>();
             CreateMap<PostVM, Post>();
+            CreateMap<Tag, TagVM>();
+            CreateMap<TagVM, Tag>();
         }
     }
 }
