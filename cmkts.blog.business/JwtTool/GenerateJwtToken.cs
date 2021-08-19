@@ -11,7 +11,7 @@ namespace cmkts.blog.business.JwtTool
 {
     public class GenerateJwtToken: IGenerateJwtToken
     {
-        public string GenerateToken(UserVM userVM)
+        public string GenerateToken(UserLoginVM userVM)
         {
             SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtTokenInfo.SecurityKey));
             SigningCredentials signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
@@ -26,7 +26,7 @@ namespace cmkts.blog.business.JwtTool
              return jwtSecurityTokenHandler.WriteToken(jwtSecurityToken);
         }
 
-        private List<Claim> SetClaims(UserVM userVM)
+        private List<Claim> SetClaims(UserLoginVM userVM)
         {
             List<Claim> claims = new List<Claim>();
             claims.Add(new Claim("nameidentifier", userVM.Email));

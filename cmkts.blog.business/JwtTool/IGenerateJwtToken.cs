@@ -7,6 +7,6 @@ namespace cmkts.blog.business.JwtTool
 {
     public interface IGenerateJwtToken
     {
-        string GenerateToken(UserVM userVM);
+        string GenerateToken(UserLoginVM userVM);
     }
 }

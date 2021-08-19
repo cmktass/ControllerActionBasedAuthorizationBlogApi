@@ -32,16 +32,18 @@ namespace cmkts.blog.wepapi.Controllers
         }
         [HttpPost]
         [ModelValidation]
-        public async Task<string> Login(UserLoginVM userVM)
+        public async Task<GenericResponse<string>> Login(UserLoginVM userVM)
         {
-            var user = await _userService.Login(userVM);
-            if (user == null)
+            var response = await _userService.Login(userVM);
+            if (string.IsNullOrEmpty(response.ErrorMessage))
             {
-                return "";
+                response.Data = _generateJwt.GenerateToken(userVM);
+                return response;
             }
             else
             {
-                return _generateJwt.GenerateToken(user);
+                
+                return response;
             }
         }
 

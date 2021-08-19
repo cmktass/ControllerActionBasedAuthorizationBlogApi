@@ -11,6 +11,6 @@ namespace cmkts.blog.business.Interface
     {
         Task<bool> Register(UserVM user);
         Task<bool> UserExist(string username);
-        Task<UserVM> Login(UserLoginVM userVM);
+        Task<GenericResponse<string>> Login(UserLoginVM userVM);
     }
 }

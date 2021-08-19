@@ -68,23 +68,27 @@ namespace cmkts.blog.business.Concrete
             }
         }
 
-        public async Task<UserVM> Login(UserLoginVM userVM)
+        public async Task<GenericResponse<string>> Login(UserLoginVM userVM)
         {
             var user =await _userRepository.Login(userVM.Email);
+            GenericResponse<string> genericResponse = new GenericResponse<string>();
             if (user == null)
             {
-                return null;
+                genericResponse.ErrorMessage="Kayıtlı Kullanıcı Bulunamadı";
+                return genericResponse;
             }
             else
             {
                 if (!VerifyPasswordHash(userVM.Password, user.PasswordHash, user.PasswordSalt))
                 {
                     await _userActivityRepository.AddAsync(new UserActivity { UserId = user.Id });
-                    return null;
+                    genericResponse.ErrorMessage = "Kullanıcı Adı veya Parola Hatalı";
+                    return genericResponse;
                 }
                 else
                 {
-                    return _mapper.Map<UserVM>(user);
+                    return genericResponse;
+                     
                 }
             } 
         }
