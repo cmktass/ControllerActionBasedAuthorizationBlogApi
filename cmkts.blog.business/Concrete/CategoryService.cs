@@ -2,6 +2,7 @@
 using cmkts.blog.dataaccess.Interface;
 using cmkts.blog.entities.Entities;
 using cmkts.blog.viewmodel.CustomizedVM;
+using cmkts.blog.viewmodel.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,7 +23,16 @@ namespace cmkts.blog.business.Concrete
         public async Task<List<CategoriesWithBlogCounts>> GetAllCategoryWithBlogCountAsync()
         {
              return await _categoryRepository.GetAllCategoryWithBlogCount();
-            
+        }
+
+        public override async Task<GenericResponse<Category>> AddAsync(Category entity)
+        {
+            return await _categoryRepository.AddAsync(entity);
+        }
+
+        public override Task<GenericResponse<Category>> UpdateAsync(Category entity)
+        {
+            return _categoryRepository.UpdateAsync(entity);
         }
     }
 }

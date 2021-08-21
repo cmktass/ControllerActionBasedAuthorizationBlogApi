@@ -15,6 +15,7 @@ namespace cmkts.blog.wepapi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [ModelValidation]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
@@ -30,28 +31,32 @@ namespace cmkts.blog.wepapi.Controllers
         {
             return await _categoryService.GetAllCategoryWithBlogCountAsync();
         }
-
-
+        [HttpGet]
+        public async Task<GenericResponse<Category>> GetCategoryById(int id)
+        {
+            return await _categoryService.GetByIdAsync(id);
+        }
+        [HttpGet("name")]
+        public async Task<GenericResponse<CategoryVM>> GetCategoryByName(string name)
+        {
+            return _mapper.Map<GenericResponse<CategoryVM>>(await _categoryService.FindByFilter(i=>i.CategoryName==name));
+        }
         [HttpPost]
         [CheckAuthorizeAttribute]
-        [ModelValidation]
-        public async Task<int> AddCategory(CategoryVM categoryVM)
+        public async Task<GenericResponse<CategoryVM>> AddCategory(CategoryVM categoryVM)
         {
-            var category = _mapper.Map<CategoryVM>(await _categoryService.AddAsync(_mapper.Map<Category>(categoryVM)));
-            return category.Id;
+            return _mapper.Map<GenericResponse<CategoryVM>>(await _categoryService.AddAsync(_mapper.Map<Category>(categoryVM)));  
         }
 
         [HttpPut]
         [CheckAuthorizeAttribute]
-        [ModelValidation]
-        public async Task<CategoryVM> UpdateCategory(CategoryVM categoryVM)
+        public async Task<GenericResponse<CategoryVM>> UpdateCategory(CategoryVM categoryVM)
         {
-            return _mapper.Map<CategoryVM>(await _categoryService.UpdateAsync(_mapper.Map<Category>(categoryVM)));
+            return _mapper.Map<GenericResponse<CategoryVM>>(await _categoryService.UpdateAsync(_mapper.Map<Category>(categoryVM)));
         }
 
         [HttpDelete]
         [CheckAuthorizeAttribute]
-        [ModelValidation]
         public async Task<bool> DeleteCategory(CategoryVM categoryVM)
         {
             return await _categoryService.DeleteAsync(_mapper.Map<Category>(categoryVM));

@@ -42,7 +42,6 @@ namespace cmkts.blog.wepapi.Controllers
             }
             else
             {
-                
                 return response;
             }
         }

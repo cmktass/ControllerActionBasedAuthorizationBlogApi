@@ -1,7 +1,10 @@
 ﻿using cmkts.blog.business.Interface;
 using cmkts.blog.dataaccess.Interface;
+using cmkts.blog.entities.Entities;
+using cmkts.blog.viewmodel.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +21,7 @@ namespace cmkts.blog.business.Concrete
         {
             return await _genericRepository.GetAllAsync();
         }
-        public Task<TEntity> AddAsync(TEntity entity)
+        public virtual Task<GenericResponse<TEntity>> AddAsync(TEntity entity)
         {
             return _genericRepository.AddAsync(entity);
         }
@@ -32,9 +35,19 @@ namespace cmkts.blog.business.Concrete
             return false;
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public virtual async Task<GenericResponse<TEntity>> UpdateAsync(TEntity entity)
         {
             return await _genericRepository.UpdateAsync(entity);
+        }
+
+        public async Task<GenericResponse<TEntity>> GetByIdAsync(int id)
+        {
+            return await _genericRepository.GetByIdAsync(id);
+        }
+
+        public async Task<GenericResponse<TEntity>> FindByFilter(Expression<Func<TEntity, bool>> expression)
+        {
+            return await _genericRepository.FindByFilter(expression);
         }
     }
 }

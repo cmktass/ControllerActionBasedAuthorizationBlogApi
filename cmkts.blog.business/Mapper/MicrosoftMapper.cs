@@ -21,6 +21,7 @@ namespace cmkts.blog.business.Mapper
             CreateMap<PostVM, Post>();
             CreateMap<Tag, TagVM>();
             CreateMap<TagVM, Tag>();
+            CreateMap(typeof(GenericResponse<>), typeof(GenericResponse<>));
         }
     }
 }
