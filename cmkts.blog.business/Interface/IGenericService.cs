@@ -1,4 +1,5 @@
-﻿using cmkts.blog.viewmodel.ViewModels;
+﻿using cmkts.blog.dataaccess.Concrete.EntityFramework.Repository;
+using cmkts.blog.viewmodel.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;

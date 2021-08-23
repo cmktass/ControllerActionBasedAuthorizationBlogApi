@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using cmkts.blog.entities.Entities;
 using cmkts.blog.viewmodel.ViewModels;
+using cmkts.blog.viewmodel.ViewModels.Controller;
 using cmkts.blog.viewmodel.ViewModels.Post;
 using cmkts.blog.viewmodel.ViewModels.Tag;
 using System;
@@ -21,6 +22,8 @@ namespace cmkts.blog.business.Mapper
             CreateMap<PostVM, Post>();
             CreateMap<Tag, TagVM>();
             CreateMap<TagVM, Tag>();
+            CreateMap<ControllerVM, Controller>();
+            CreateMap<Controller, ControllerVM>();
             CreateMap(typeof(GenericResponse<>), typeof(GenericResponse<>));
         }
     }

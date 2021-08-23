@@ -24,15 +24,28 @@ namespace cmkts.blog.business.Concrete
         {
              return await _categoryRepository.GetAllCategoryWithBlogCount();
         }
-
-        public override async Task<GenericResponse<Category>> AddAsync(Category entity)
+        public async override Task<GenericResponse<Category>> AddAsync(Category entity)
         {
-            return await _categoryRepository.AddAsync(entity);
+            GenericResponse<Category> response = new GenericResponse<Category>();
+            if (await _categoryRepository.FindByFilter(c=>c.CategoryName == entity.CategoryName) != null)
+            {
+                response.ErrorMessage = "Bu isimli kategori mevcut";
+                response.Data = entity;
+                return response;
+            }
+            return await base.AddAsync(entity);
+        }
+        public async override Task<GenericResponse<Category>> UpdateAsync(Category entity)
+        {
+            GenericResponse<Category> response = new GenericResponse<Category>();
+            if (await _categoryRepository.FindByFilter(c => c.CategoryName == entity.CategoryName) != null)
+            {
+                response.ErrorMessage = "Bu isimli kategori mevcut";
+                response.Data = entity;
+                return response;
+            }
+            return await base.UpdateAsync(entity);
         }
 
-        public override Task<GenericResponse<Category>> UpdateAsync(Category entity)
-        {
-            return _categoryRepository.UpdateAsync(entity);
-        }
     }
 }

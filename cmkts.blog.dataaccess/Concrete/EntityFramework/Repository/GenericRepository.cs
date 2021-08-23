@@ -14,27 +14,24 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, new()
     {
-        public async virtual Task<GenericResponse<TEntity>> AddAsync(TEntity entity)
+        public async virtual Task<TEntity> AddAsync(TEntity entity)
         {
             using(var db = new CmktsBlogSiteContext()) 
             {
-                GenericResponse<TEntity> response = new GenericResponse<TEntity>();
+               
                 await db.Set<TEntity>().AddAsync(entity);
                 await db.SaveChangesAsync();
-                response.Data = entity;
-                return response;
+                return entity;
             }
         }
 
-        public async virtual Task<GenericResponse<int>> DeleteAsync(int id)
+        public async virtual Task<int> DeleteAsync(int id)
         {
             using (var db = new CmktsBlogSiteContext())
             {
-                GenericResponse<int> response = new GenericResponse<int>();
                 var a = await db.Set<TEntity>().FindAsync(id);
                 db.Set<TEntity>().Remove(a);
-                response.Data = await db.SaveChangesAsync();
-                return response;
+                return await db.SaveChangesAsync(); 
             }
         }
 
@@ -46,35 +43,30 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
             }
         }
 
-        public async virtual Task<GenericResponse<TEntity>> UpdateAsync(TEntity entity)
+        public async virtual Task<TEntity> UpdateAsync(TEntity entity)
         {
             using(var db=new CmktsBlogSiteContext())
             {
-                GenericResponse<TEntity> response = new GenericResponse<TEntity>();
                 db.Set<TEntity>().Update(entity);
                 await db.SaveChangesAsync();
-                response.Data = entity;
-                return response;
+                return entity;
             }
         }
-        public async virtual Task<GenericResponse<TEntity>> GetByIdAsync(int id)
+        public async virtual Task<TEntity> GetByIdAsync(int id)
         {
             using (var db = new CmktsBlogSiteContext())
             {
                 GenericResponse<TEntity> response = new GenericResponse<TEntity>();
                 var data = await db.Set<TEntity>().FindAsync(id);
-                response.Data = data;
-                return response;
+                return data;
             }
         }
 
-        public async virtual Task<GenericResponse<TEntity>> FindByFilter(Expression<Func<TEntity, bool>> expression)
+        public async virtual Task<TEntity> FindByFilter(Expression<Func<TEntity, bool>> expression)
         {
             using (var db = new CmktsBlogSiteContext())
             {
-                GenericResponse<TEntity> response = new GenericResponse<TEntity>();
-                response.Data = await db.Set<TEntity>().Where(expression).FirstOrDefaultAsync();
-                return response;
+                return await db.Set<TEntity>().Where(expression).FirstOrDefaultAsync();
             }
         }
     }
