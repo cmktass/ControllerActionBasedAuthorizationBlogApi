@@ -10,7 +10,7 @@ namespace cmkts.blog.business.Interface
     public interface IGenericService<TEntity> where TEntity:class
     {
         Task<GenericResponse<TEntity>> AddAsync(TEntity entity);
-        Task<bool> DeleteAsync(TEntity entity);
+        Task<GenericResponse<int>> DeleteAsync(int id);
         Task<GenericResponse<TEntity>> UpdateAsync(TEntity entity);
         Task<List<TEntity>> GetAllAsync();
         Task<GenericResponse<TEntity>> GetByIdAsync(int id);

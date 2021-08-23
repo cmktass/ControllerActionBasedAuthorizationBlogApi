@@ -61,7 +61,7 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
                 }
                 else
                 {
-                    await db.Categories.AddAsync(entity);
+                    db.Categories.Update(entity);
                     await db.SaveChangesAsync();
                     response.Data = entity;
                 }

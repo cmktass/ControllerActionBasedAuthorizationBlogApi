@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cmkts.blog.entities", "cmkt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cmkts.blog.dataaccess", "cmkts.blog.dataaccess\cmkts.blog.dataaccess.csproj", "{BE0A29B4-D565-43C1-AD60-3D9A350328A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cmkts.blog.wepapi", "cmkts.blog.wepapi\cmkts.blog.wepapi.csproj", "{E8463F92-AAF6-4A7C-8824-662CC0A3D48C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cmkts.blog.webapi", "cmkts.blog.wepapi\cmkts.blog.webapi.csproj", "{E8463F92-AAF6-4A7C-8824-662CC0A3D48C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cmkts.blog.viewmodel", "cmkts.blog.viewmodel\cmkts.blog.viewmodel.csproj", "{CF624E95-BFA9-46E2-B6AF-5A4820E29AC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cmkts.blog.business", "cmkts.blog.business\cmkts.blog.business.csproj", "{34925CDA-56A9-437D-97A7-05234FAD7C17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cmkts.blog.business", "cmkts.blog.business\cmkts.blog.business.csproj", "{34925CDA-56A9-437D-97A7-05234FAD7C17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

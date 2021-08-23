@@ -26,12 +26,15 @@ namespace cmkts.blog.dataaccess.Concrete.EntityFramework.Repository
             }
         }
 
-        public async virtual Task<int> DeleteAsync(TEntity entity)
+        public async virtual Task<GenericResponse<int>> DeleteAsync(int id)
         {
             using (var db = new CmktsBlogSiteContext())
             {
-                db.Set<TEntity>().Remove(entity);
-                return await db.SaveChangesAsync();
+                GenericResponse<int> response = new GenericResponse<int>();
+                var a = await db.Set<TEntity>().FindAsync(id);
+                db.Set<TEntity>().Remove(a);
+                response.Data = await db.SaveChangesAsync();
+                return response;
             }
         }
 

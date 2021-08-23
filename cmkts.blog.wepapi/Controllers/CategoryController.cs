@@ -55,11 +55,11 @@ namespace cmkts.blog.wepapi.Controllers
             return _mapper.Map<GenericResponse<CategoryVM>>(await _categoryService.UpdateAsync(_mapper.Map<Category>(categoryVM)));
         }
 
-        [HttpDelete]
+        [HttpDelete("id")]
         [CheckAuthorizeAttribute]
-        public async Task<bool> DeleteCategory(CategoryVM categoryVM)
+        public async Task<GenericResponse<int>> DeleteCategory(int id)
         {
-            return await _categoryService.DeleteAsync(_mapper.Map<Category>(categoryVM));
+            return await _categoryService.DeleteAsync(id);
         }
 
     }

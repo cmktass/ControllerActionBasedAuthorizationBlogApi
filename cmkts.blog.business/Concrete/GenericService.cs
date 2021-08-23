@@ -26,13 +26,18 @@ namespace cmkts.blog.business.Concrete
             return _genericRepository.AddAsync(entity);
         }
 
-        public async Task<bool> DeleteAsync(TEntity entity)
+        public async Task<GenericResponse<int>> DeleteAsync(int id)
         {
-            if (await _genericRepository.DeleteAsync(entity)>0)
+            var response = await _genericRepository.DeleteAsync(id);
+            if (response.Data > 0)
             {
-                return true;
+                return response;
             }
-            return false;
+            else
+            {
+                response.ErrorMessage = "Silinemedi";
+                return response;
+            }
         }
 
         public virtual async Task<GenericResponse<TEntity>> UpdateAsync(TEntity entity)
