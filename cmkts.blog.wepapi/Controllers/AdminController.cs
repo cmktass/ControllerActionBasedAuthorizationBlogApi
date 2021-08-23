@@ -28,7 +28,11 @@ namespace cmkts.blog.webapi.Controllers
         {
             return await _controllerService.GetAllAsync();
         }
-
+        [HttpGet("name")]
+        public async Task<GenericResponse<cmkts.blog.entities.Entities.Controller>> GetControllerByName(string name)
+        {
+            return await _controllerService.FindByFilter(i=>i.ControllerName==name);
+        }
         [HttpPost]
         public async Task<GenericResponse<cmkts.blog.entities.Entities.Controller>> AddController(ControllerVM controllerVM)
         {
@@ -39,10 +43,15 @@ namespace cmkts.blog.webapi.Controllers
         {
             return await _controllerService.UpdateAsync(_mapper.Map<cmkts.blog.entities.Entities.Controller>(controllerVM));
         }
-        [HttpDelete]
+        [HttpDelete("id")]
         public async Task<GenericResponse<int>> DeleteController(int id)
         {
             return await _controllerService.DeleteAsync(id);
+        }
+        [HttpGet("id")]
+        public async Task<GenericResponse<cmkts.blog.entities.Entities.Controller>> GetControllerWithActions(int id)
+        {
+            return await _controllerService.GetControllerWithActions(id);
         }
     }
 }

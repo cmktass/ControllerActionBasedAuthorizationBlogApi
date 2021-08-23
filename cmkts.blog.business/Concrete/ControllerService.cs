@@ -19,6 +19,11 @@ namespace cmkts.blog.business.Concrete
             _controllerRepository = controllerRepository;
         }
 
-       
+        public async Task<GenericResponse<Controller>> GetControllerWithActions(int id)
+        {
+            GenericResponse<Controller> response = new GenericResponse<Controller>();
+            response.Data = await _controllerRepository.GetControllerWithActions(id);
+            return response;
+        }
     }
 }
