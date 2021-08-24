@@ -55,11 +55,25 @@ namespace cmkts.blog.webapi.Controllers
         {
             return await _controllerService.GetControllerWithActions(id);
         }
-
+        [HttpGet("id")]
+        public async Task<GenericResponse<ControllerAction>> GetAction(int id)
+        {
+            return await _controllerActionService.FindByFilter(i => i.Id == id);
+        }
         [HttpPost]
         public async Task<GenericResponse<ControllerAction>> AddAction(ControllerAction controllerAction)
         {
             return await _controllerActionService.AddAsync(controllerAction);
+        }
+        [HttpPut]
+        public async Task<GenericResponse<ControllerAction>> UpdateAction(ControllerAction controllerAction)
+        {
+            return await _controllerActionService.UpdateAsync(controllerAction);
+        }
+        [HttpDelete("id")]
+        public async Task<GenericResponse<int>> DeleteAction(int id)
+        {
+            return await _controllerActionService.DeleteAsync(id);
         }
     }
 }
