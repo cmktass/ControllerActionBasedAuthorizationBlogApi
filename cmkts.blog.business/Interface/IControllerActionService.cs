@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace cmkts.blog.dataaccess.Interface
+namespace cmkts.blog.business.Interface
 {
-    interface IControllerAction:IGenericRepository<ControllerAction>
+    public interface IControllerActionService:IGenericService<ControllerAction>
     {
-          
     }
 }

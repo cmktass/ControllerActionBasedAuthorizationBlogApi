@@ -17,10 +17,12 @@ namespace cmkts.blog.webapi.Controllers
     public class AdminController : ControllerBase
     {
         private IControllerService _controllerService;
+        private IControllerActionService _controllerActionService;
         private readonly IMapper _mapper;
-        public AdminController(IMapper mapper, IControllerService controllerService)
+        public AdminController(IMapper mapper, IControllerService controllerService, IControllerActionService controllerActionService)
         {
             _controllerService = controllerService;
+            _controllerActionService = controllerActionService;
             _mapper = mapper;
         }
         [HttpGet]
@@ -52,6 +54,12 @@ namespace cmkts.blog.webapi.Controllers
         public async Task<GenericResponse<cmkts.blog.entities.Entities.Controller>> GetControllerWithActions(int id)
         {
             return await _controllerService.GetControllerWithActions(id);
+        }
+
+        [HttpPost]
+        public async Task<GenericResponse<ControllerAction>> AddAction(ControllerAction controllerAction)
+        {
+            return await _controllerActionService.AddAsync(controllerAction);
         }
     }
 }
