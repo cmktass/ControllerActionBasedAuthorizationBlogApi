@@ -3,11 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace cmkts.blog.dataaccess.Interface
+namespace cmkts.blog.business.Interface
 {
-    public interface IRoleRepository:IGenericRepository<Role>
+    public interface IRoleService:IGenericService<Role>
     {
-
-
     }
 }

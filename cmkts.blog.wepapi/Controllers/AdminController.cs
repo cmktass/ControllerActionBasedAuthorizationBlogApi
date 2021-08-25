@@ -18,11 +18,14 @@ namespace cmkts.blog.webapi.Controllers
     {
         private IControllerService _controllerService;
         private IControllerActionService _controllerActionService;
+        private IRoleService _roleService;
         private readonly IMapper _mapper;
-        public AdminController(IMapper mapper, IControllerService controllerService, IControllerActionService controllerActionService)
+        public AdminController(IMapper mapper, IControllerService controllerService, IControllerActionService controllerActionService,
+            IRoleService roleService)
         {
             _controllerService = controllerService;
             _controllerActionService = controllerActionService;
+            _roleService = roleService;
             _mapper = mapper;
         }
         [HttpGet]
@@ -75,5 +78,35 @@ namespace cmkts.blog.webapi.Controllers
         {
             return await _controllerActionService.DeleteAsync(id);
         }
+
+        [HttpPost]
+        public async Task<GenericResponse<Role>> AddRole(Role role)
+        {
+            return await _roleService.AddAsync(role);
+        }
+
+        [HttpGet]
+        public async Task<List<Role>> GetAllRoles()
+        {
+            return await _roleService.GetAllAsync();
+        }
+        [HttpGet("id")]
+        public async Task<GenericResponse<Role>> GetRole(int id)
+        {
+            return await _roleService.FindByFilter(i => i.Id == id);
+        }
+        [HttpPut]
+        public async Task<GenericResponse<Role>> UpdateRole(Role role)
+        {
+            return await _roleService.UpdateAsync(role);
+        }
+        [HttpDelete("id")]
+        public async Task<GenericResponse<int>> DeleteRole(int id)
+        {
+            return await _roleService.DeleteAsync(id);
+        }
+
+       
+
     }
 }

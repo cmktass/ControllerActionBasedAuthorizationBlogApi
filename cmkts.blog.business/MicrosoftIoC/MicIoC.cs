@@ -21,6 +21,8 @@ namespace cmkts.blog.business.MicrosoftIoC
             service.AddScoped<ITagRepository, TagRepository>();
             service.AddScoped<IControllerRepository, ControllerRepository>();
             service.AddScoped<IControllerActionRepository, ControllerActionRepository>();
+            service.AddScoped<IRoleRepository, RoleRepository>();
+
 
             service.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
             service.AddScoped<IUserRepository,UserRepository>();
@@ -30,6 +32,8 @@ namespace cmkts.blog.business.MicrosoftIoC
             service.AddScoped<ITagService, TagService>();
             service.AddScoped<IControllerService, ControllerService>();
             service.AddScoped<IControllerActionService, ControllerActionService>();
+            service.AddScoped<IRoleService, RoleService>();
+
 
             service.AddScoped<IGenerateJwtToken, GenerateJwtToken>();
         }
